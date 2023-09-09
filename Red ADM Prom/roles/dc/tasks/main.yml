@@ -1,9 +1,16 @@
 ---
+- name: Set a hostname
+  ansible.builtin.hostname:
+    name: {{ hostname_dc }}
+
 - name: Disable SELinux
   ansible.posix.selinux:
     state: disabled
 
-- name: 
+- name: Setenforce 0
+  ansible.builtin.shell: setenforce 0
+
+- name: Generate network config
   ansible.builtin.template:
     src: enp1s0.j2
     dest: /etc/sysconfig/network-scripts/ifcfg-enp1s0
@@ -11,4 +18,22 @@
     ansible_os_family == "REDOS"
   notify:
     - restart network
+
+- name: Generate resolv config
+  ansible.builtin.template:
+    src: resolv.j2
+    dest: /etc/resolv.conf
+
+- name: Upgrade all packages
+  ansible.builtin.yum:
+    name: '*'
+    state: latest
+
+- name: Upgrade all packages
+  ansible.builtin.yum:
+    name: 
+      - bind
+      - krb5-workstation 
+      - /opt/reddc*
+    state: latest
 ...

@@ -1,4 +1,6 @@
 ---
 ansible_ssh_private_key_file: /home/deployer/.ssh/authorized_keys
+
+hostname_dc : dc01.red.adm
 dns_forwarder_ipv4: 8.8.8.8
 ...

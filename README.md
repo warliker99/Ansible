@@ -1,5 +1,13 @@
 Репозиторий по автоматизации с помощью Ansible, отечественных решений инфраструктуры.!!!
 
+Подготовка ВМ для работы с Git:
+ - ssh-keygen
+ - cat /root/.ssh/id_rsa.pub
+ - git remote set-url origin  git@github.com:warliker99/Ansible.git
+ - cd /opt/git/Ansible/
+ - git remote set-url origin  git@github.com:warliker99/Ansible.git
+ - git push origin
+
 Для РедОС:
 
 Предварительно на хостах и управляемом сервере необходимо выполнить следующие действия:
@@ -40,4 +48,6 @@ transport = local
 ``````
 
 
-ansible-galaxy collection install ansible.posix
+
+
+

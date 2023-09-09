@@ -1,2 +1,6 @@
 ---
-# handlers file for dc
+- name: restart network
+  systemd:
+    name: NetworkManager
+    enabled: yes
+    state: restarted

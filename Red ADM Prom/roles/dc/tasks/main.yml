@@ -1,2 +1,14 @@
 ---
-# tasks file for dc
+- name: Disable SELinux
+  ansible.posix.selinux:
+    state: disabled
+
+- name: 
+  ansible.builtin.template:
+    src: enp1s0.j2
+    dest: /etc/sysconfig/network-scripts/ifcfg-enp1s0
+  when:
+    ansible_os_family == "REDOS"
+  notify:
+    - restart network
+...

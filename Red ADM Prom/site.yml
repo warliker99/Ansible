@@ -1,13 +1,13 @@
 ---
-all:
-  children:
-    dc:
-      hosts:
-        172.26.71.130:
-    
-    redadm:
-      hosts:
-        172.26.71.130:    
+
+- hosts: dc
+  roles:
+    - dc
+    - bind
+
+- hosts: redadm
+  roles:
+    - redadm
+
 ...
-        
     

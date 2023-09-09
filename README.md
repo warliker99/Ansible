@@ -31,3 +31,10 @@
     # ssh-keygen -t rsa
     # ssh-copy-id deployer@<ip_v4>
     ``````
+
+!!!!В случае если на управляемый сервер производится разливка, необходимо в ansible.cfg добавить: 
+``````
+[defaults]
+........
+transport = local
+``````

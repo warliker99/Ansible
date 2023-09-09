@@ -1,2 +1,6 @@
 ---
-# tasks file for bind
+- name: Generate /etc/named.conf
+  ansible.builtin.template:
+    src: named.j2
+    dest: /etc/named.conf
+    

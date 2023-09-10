@@ -1,2 +1,31 @@
 ---
-# handlers file for redadm
+- name: restart redadm
+  ansible.builtin.service:
+    name: redadm
+    enabled: yes
+    state: restarted
+
+- name: restart redis
+  ansible.builtin.service:
+    name: redis
+    enabled: yes
+    state: restarted
+
+- name: restart redadm-celery-worker
+  ansible.builtin.service:
+    name: redadm-celery-worker
+    enabled: yes
+    state: restarted
+
+
+- name: restart nginx
+  ansible.builtin.service:
+    name:  nginx
+    enabled: yes
+    state: restarted
+
+- name: restart firebird
+  ansible.builtin.service:
+    name:  firebird
+    enabled: yes
+    state: restarted

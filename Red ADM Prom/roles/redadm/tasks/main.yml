@@ -13,12 +13,6 @@
 - name: Configure firebird db
   ansible.builtin.shell: echo -e "create user SYSDBA password '{{ password_db }}';\nquit;" | isql-fb security.db -user SYSDBA -password masterkey
 
-- name: Restart services
-  ansible.builtin.service:
-    name:  firebird-superserver 
-    state: restarted
-    enabled: yes
-
 - name: mkdir /db
   ansible.builtin.file:
     path: /db
@@ -27,14 +21,37 @@
     group: firebird
     mode: '0774'
 
-- name: sql.sh copy
+- name: configure.sql copy
   ansible.builtin.copy:
-    src: sql.sh
-    dest: /opt/sql.sh
+    src: configure.sql
+    dest: /opt/configure.sql
     owner: root
     group: root
     mode: '0774'
 
 - name: sql.sh exec
-  ansible.builtin.shell: /bin/bash /opt/sql.sh {{ password_db }}
+  ansible.builtin.shell: isql-fb -user SYSDBA -password '{{ password_db }}' -i /opt/sql.sql
+  notify:
+    - restart firebird
 
+- name: Install redadm local file
+  ansible.builtin.yum:
+    name: /opt/redadm.rpm
+    state: present
+    disable_gpg_check: true
+
+- name: Generate /etc/redadm/server.conf
+  template:
+    src: server.j2
+    dest: /etc/redadm/server.conf
+
+
+- name: Generate /etc/redadm/client.conf
+  template:
+    src: client.j2
+    dest: /etc/redadm/client.conf
+  notify:
+    - restart redadm
+    - restart redis
+    - restart redadm-celery-worker
+    - restart nginx

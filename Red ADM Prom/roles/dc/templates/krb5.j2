@@ -15,12 +15,12 @@ includedir /etc/krb5.conf.d/
     spake_preauth_groups = edwards25519
     dns_canonicalize_hostname = fallback
     qualify_shortname = ""
-    default_realm = EXAMPLE.TST
+    default_realm = {{ ansible_domain | upper }}
     default_ccache_name = KEYRING:persistent:%{uid}
 
 
 [realms]
-{{ ansible_domain }} = {
+{{ ansible_domain | upper }} = {
     kdc = {{ hostname_dc }}
     admin_server = {{ hostname_dc }}
 }

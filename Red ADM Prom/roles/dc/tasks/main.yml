@@ -39,7 +39,7 @@
 
 - name: Install reddc local file
   ansible.builtin.yum:
-    name: /opt/reddc*
+    name: /opt/reddc.rpm
     state: present
     disable_gpg_check: true
 

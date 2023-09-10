@@ -1,6 +1,6 @@
 ---
 - name: Create first domain
-   ansible.builtin.shell: /opt/reddc/bin/samba-tool domain provision --use-rfc2307 --realm {{ ansible_domain | upper}} --domain {{ ansible_domain.split('.', 1)[0]|upper }} --server-role dc --dns-backend BIND9_DLZ 
+   ansible.builtin.shell: "/opt/reddc/bin/samba-tool domain provision --use-rfc2307 --realm {{ ansible_domain | upper}} --domain {{ ansible_domain.split('.', 1)[0]|upper }} --server-role dc --dns-backend BIND9_DLZ"
 
 - name: Configure .bashrc for root
    ansible.builtin.copy:

@@ -10,6 +10,7 @@
 
 - name: Setenforce 0
   ansible.builtin.shell: setenforce 0
+  ignore_errors: true
 
 - name: Generate network config
   ansible.builtin.template:

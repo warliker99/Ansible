@@ -30,7 +30,7 @@
     name: '*'
     state: latest
 
-- name: Upgrade all packages
+- name: Install packages
   ansible.builtin.yum:
     name: 
       - bind

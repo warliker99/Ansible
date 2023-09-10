@@ -24,8 +24,8 @@
     enabled: yes
     state: restarted
 
-- name: restart firebird
+- name: restart firebird-superserver
   ansible.builtin.service:
-    name:  firebird
+    name:  firebird-superserver
     enabled: yes
     state: restarted

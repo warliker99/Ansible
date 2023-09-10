@@ -11,7 +11,7 @@
     state: latest
 
 - name: Configure firebird db
-  ansible.builtin.shell: echo -e "create user SYSDBA password {{ password_db }};\nquit; " | isql-fb security.db -user SYSDBA -password masterkey;
+  ansible.builtin.shell: echo -e "create user SYSDBA password {{ password_db }};\nquit;" | isql-fb security.db -user SYSDBA -password masterkey
 
 - name: Restart services
   ansible.builtin.service:
@@ -27,4 +27,15 @@
     owner: firebird
     group: firebird
     mode: '0774'
+
+- name: sql.sh copy
+  ansible.builtin.copy:
+    src: sql.sh
+    dest: /opt/sql.sh
+    owner: root
+    group: root
+    mode: '0774'
+
+- name: sql.sh exec
+  ansible.builtin.shell: /bin/bash /opt/sql.sh
 

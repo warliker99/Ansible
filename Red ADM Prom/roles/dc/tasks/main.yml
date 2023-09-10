@@ -35,7 +35,11 @@
     name: 
       - bind
       - krb5-workstation 
-      - /opt/reddc.rpm
+    state: latest
+
+- name: Install reddc local file
+  ansible.builtin.yum:
+    name: /opt/reddc.rpm
     state: present
 
 - name: Generate /etc/krb5.conf

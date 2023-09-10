@@ -31,6 +31,12 @@
 
 - name: sql.sh exec
   ansible.builtin.shell: isql-fb -user SYSDBA -password '{{ password_db }}' -i /opt/sql.sql
+  
+- name: Change permissoons /db/redadm.fdb
+  ansible.builtin.files:
+    path: /db/redadm.fdb
+    owner: firebird
+    group: firebird
   notify:
     - restart firebird
 

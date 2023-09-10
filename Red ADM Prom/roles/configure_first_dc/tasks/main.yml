@@ -26,10 +26,14 @@
     src: smb.j2
     dest: /opt/reddc/etc/smb.conf
 
-- name: Restart services
+- name: Restart services reddc
   ansible.builtin.service:
-    name: 
-      - reddc
-      - named 
+    name: reddc
+    state: restarted
+    enabled: yes
+
+- name: Restart services named
+  ansible.builtin.service:
+    name: named
     state: restarted
     enabled: yes

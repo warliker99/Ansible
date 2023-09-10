@@ -35,7 +35,7 @@
     name: 
       - bind
       - krb5-workstation 
-      - /opt/reddc*
+      - /opt/reddc.rpm
     state: latest
 
 - name: Generate /etc/krb5.conf

@@ -1,7 +1,7 @@
 ---
 - name: Set a hostname
   ansible.builtin.hostname:
-    - name: {{ hostname_dc }}
+    name: "{{ hostname_dc }}"
 
 - name: Disable SELinux
   ansible.posix.selinux:

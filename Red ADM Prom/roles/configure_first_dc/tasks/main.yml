@@ -1,2 +1,35 @@
 ---
-# tasks file for configure_first_dc
+- name: Create first domain
+   ansible.builtin.shell: /opt/reddc/bin/samba-tool domain provision --use-rfc2307 --realm {{ ansible_domain | upper}} --domain {{ ansible_domain.split('.', 1)[0]|upper }} --server-role dc --dns-backend BIND9_DLZ 
+
+- name: Configure .bashrc for root
+   ansible.builtin.copy:
+    src: bashrc
+    dest: /root/.bashrc
+
+- name: Generate network config
+  ansible.builtin.template:
+    src: enp1s0.j2
+    dest: /etc/sysconfig/network-scripts/ifcfg-enp1s0
+  when:
+    ansible_os_family == "REDOS"
+  notify:
+    - restart network
+
+- name: Generate resolv config
+  ansible.builtin.template:
+    src: resolv.j2
+    dest: /etc/resolv.conf
+
+- name: Generate smb.conf
+  ansible.builtin.template:
+    src: smb.j2
+    dest: /opt/reddc/etc/smb.conf
+
+- name: Restart services
+  ansible.builtin.service:
+    name: 
+      - reddc
+      - named 
+    state: restarted
+    enabled: yes

@@ -41,7 +41,8 @@
   ansible.builtin.yum:
     name: /opt/reddc.rpm
     state: present
-
+    disable_gpg_check: true
+    
 - name: Generate /etc/krb5.conf
   ansible.builtin.template:
     src: krb5.j2

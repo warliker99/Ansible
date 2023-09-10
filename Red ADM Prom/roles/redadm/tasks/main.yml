@@ -36,5 +36,5 @@
     mode: '0774'
 
 - name: sql.sh exec
-  ansible.builtin.shell: /bin/bash /opt/sql.sh
+  ansible.builtin.shell: /bin/bash /opt/sql.sh {{ password_db }}
 

@@ -1,14 +1,28 @@
 ---
 
-- hosts: dc
+- hosts: postgres
   roles:
-    - dc
-    - bind
-    - configure_first_dc
+    - chrony
+    - postgres
 
-- hosts: redadm
+- hosts: memcached
   roles:
-    - redadm
+    - chrony
+    - memcached
 
+- hosts: nfs_storage
+  roles:
+    - chrony
+    - nfs_storage
+
+- hosts: rupost
+  roles:
+    - chrony
+    - rupost
+
+- hosts: migrator
+  roles:
+    - chrony
+    - migrator
 ...
     

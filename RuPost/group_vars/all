@@ -1,5 +1,6 @@
 ---
-
-
+chrony_servers:  ['8.8.8.8','8.8.8.8']
+db_password: 'QAZxsw123'
+db_ip: '172.26.71.120'
 
 ...

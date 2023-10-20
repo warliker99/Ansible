@@ -1,2 +1,6 @@
 ---
-# handlers file for chrony
+- name: restart chrony
+  ansible.builtin.systemd:
+    name: chronyd
+    enabled: yes
+    state: restarted

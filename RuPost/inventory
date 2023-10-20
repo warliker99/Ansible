@@ -1,11 +1,23 @@
 ---
 all:
   children:
-    dc:
+    rupost:
       hosts:
-#        172.26.71.130:
+        172.26.71.130:
     
-    redadm:
+    memcached:
       hosts:
-        172.26.71.130:    
+        172.26.71.130:  
+
+    postgres:
+      hosts:
+         172.26.71.130:
+
+    nfs_storage:
+      hosts:
+        172.26.71.130: 
+
+    migrator:
+      hosts:
+        172.26.71.130:
 ...

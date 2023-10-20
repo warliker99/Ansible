@@ -1,0 +1,5 @@
+collections:
+
+  - name: community.postgresql
+    source: https://galaxy.ansible.com
+    

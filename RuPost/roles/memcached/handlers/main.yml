@@ -1,2 +1,6 @@
 ---
-# handlers file for memcached
+- name: restart memcached
+  ansible.builtin.systemd:
+    name: memcached
+    enabled: yes
+    state: restarted

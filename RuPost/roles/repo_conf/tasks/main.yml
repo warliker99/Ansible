@@ -1,2 +1,10 @@
 ---
-# tasks file for repo_conf
+- name: Generate template repos
+  ansible.builtin.template:
+    src: sources.list.j2
+    dest: /etc/apt/sources.list
+
+- name: apt update and distr upgrage
+  ansible.builtin.apt:
+    upgrade: dist
+    force_apt_get: yes

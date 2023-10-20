@@ -2,26 +2,31 @@
 
 - hosts: postgres
   roles:
+    - repo_conf
     - chrony
     - postgres
 
 - hosts: memcached
   roles:
+    - repo_conf
     - chrony
     - memcached
 
 - hosts: nfs_storage
   roles:
+    - repo_conf
     - chrony
     - nfs_storage
 
 - hosts: rupost
   roles:
+    - repo_conf
     - chrony
     - rupost
 
 - hosts: migrator
   roles:
+    - repo_conf
     - chrony
     - migrator
 ...

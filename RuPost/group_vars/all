@@ -1,6 +1,8 @@
 ---
 chrony_servers:  ['8.8.8.8','8.8.8.8']
+repo_base: https://dl.astralinux.ru/astra/frozen/1.7_x86-64/1.7.4/repository-base/
+repo_ext: https://dl.astralinux.ru/astra/frozen/1.7_x86-64/1.7.4/repository-extended/
 db_password: 'QAZxsw123'
 db_ip: '172.26.71.120'
-
+root_dir_nfs: /srv
 ...

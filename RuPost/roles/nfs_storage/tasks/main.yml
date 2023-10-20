@@ -1,2 +1,32 @@
 ---
-# tasks file for nfs_storage
+- name: Install nfs-kernel-server
+  ansible.builtin.apt:
+    name: nfs-kernel-server
+    state: present
+
+- name: Mkdir root_nfs
+  ansible.builtin.file:
+    path: {{ root_dir_nfs}}/nfs/{{ item }}
+    state: directory
+    mode: '0755'
+    owner: 420
+    group: 420
+  loop:
+    - MailQueues
+    - MailStorage
+    - MailArchive
+    - MailRecord
+    - IndexFiles
+
+ - name: Generate template nfs-kernel-server
+  ansible.builtin.template:
+    src: nfs-kernel-server.j2
+    dest: /etc/default/nfs-kernel-server
+
+
+ - name: Generate template nfs-kernel-server_exports
+  ansible.builtin.template:
+    src: exports.j2
+    dest: /etc/exports
+  notify:
+    - restart nfs-kernel-server   

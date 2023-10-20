@@ -1,2 +1,12 @@
 ---
-# tasks file for memcached
+- name: Install memcached
+  ansible.builtin.apt:
+    name: memcached
+    state: present
+
+ - name: Generate template memcached
+  ansible.builtin.template:
+    src: memcached.conf.j2
+    dest: /etc/memcached.conf
+  notify:
+    - restart memcached   

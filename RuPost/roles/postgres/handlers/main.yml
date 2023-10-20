@@ -1,2 +1,6 @@
 ---
-# handlers file for postgres
+- name: restart postgresql
+  ansible.builtin.systemd:
+    name: postgresql
+    enabled: yes
+    state: restarted

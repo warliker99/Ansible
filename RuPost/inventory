@@ -1,0 +1,11 @@
+---
+all:
+  children:
+    dc:
+      hosts:
+#        172.26.71.130:
+    
+    redadm:
+      hosts:
+        172.26.71.130:    
+...

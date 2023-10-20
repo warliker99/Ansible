@@ -1,0 +1,14 @@
+---
+
+- hosts: dc
+  roles:
+    - dc
+    - bind
+    - configure_first_dc
+
+- hosts: redadm
+  roles:
+    - redadm
+
+...
+    

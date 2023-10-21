@@ -4,12 +4,12 @@
 #####################################################################
 
 
-OS_RELEASE = `lsb_release -a | grep -i description| awk '{print $2}'`
+OS_RELEASE="astra"
 
-HOSTNAME_NEW = dc01.aldpro.ru
+HOSTNAME_NEW="dc01.aldpro.ru"
 NAME=`awk -F"." '{print $1}' /etc/hostname`
 
-PUBLIC_KEY_SSH = ""
+PUBLIC_KEY_SSH=""
 
 IPV4="172.31.32.22"
 MASK="255.255.255.0"
@@ -28,22 +28,6 @@ ASTRA_EXT="http://download.astralinux.ru/astra/frozen/1.7_x86-64/1.7.4/repositor
 
 
 #######################################################################################
-
-echo -n "Enter the role (Ansible_main | Ansible_host): "
-read ROLE
-
-case $OS_RELEASE in
-
-    RED|red|Red OS)
-        Configure_OS_red
-        Install_for_red
-    ;;
-
-    Astra|astra|Astra Linux)
-        Configure_OS_astra
-        Install_for_astra
-    ;;
-esac
 
 function Install_for_red {
 
@@ -154,3 +138,29 @@ useradd -G astra-admin -m -s /bin/bash deployer
 echo "deployer ALL=(ALL) NOPASSWD:ALL" | tee /etc/sudoers.d/deployer
 
 }
+
+
+
+
+
+
+#########################################################################################
+
+
+
+echo -n "Enter the role (Ansible_main | Ansible_host): "
+read ROLE
+
+case $OS_RELEASE in
+
+    RED|red|Red OS)
+        Configure_OS_red
+        Install_for_red
+    ;;
+
+    Astra|astra|Astra Linux)
+        Configure_OS_astra
+        Install_for_astra
+    ;;
+esac
+

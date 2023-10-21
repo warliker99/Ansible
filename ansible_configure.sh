@@ -9,6 +9,8 @@ OS_RELEASE = `lsb_release -a | grep -i description| awk '{print $2}'`
 HOSTNAME_NEW = dc01.aldpro.ru
 NAME=`awk -F"." '{print $1}' /etc/hostname`
 
+PUBLIC_KEY_SSH = ""
+
 IPV4="172.31.32.22"
 MASK="255.255.255.0"
 GATEWAY="172.31.32.1"
@@ -23,7 +25,6 @@ ASTRA_BASE="http://download.astralinux.ru/astra/frozen/1.7_x86-64/1.7.4/reposito
 ASTRA_EXT="http://download.astralinux.ru/astra/frozen/1.7_x86-64/1.7.4/repository-extended"
 
 ###REPOS FOR RED
-
 
 
 #######################################################################################
@@ -67,11 +68,17 @@ case $ROLE in
 
     Ansible_main|ansible_main)
 
-    apt install git ansible
+    apt install git ansible -y
+    sudo su - deployer
+    ssh-keygen -t rsa  -N "" 
     ;;
 
     Ansible_host|ansible_host)
-
+    touch /home/deployer/.ssh/authorized_keys
+    chmod 600 /home/deployer/.ssh/authorized_keys
+    cat <<EOL > /home/deployer/.ssh/authorized_keys
+    $PUBLIC_KEY_SSH
+    EOL
     ;;
 esac
 }
@@ -137,11 +144,13 @@ systemctl restart networking
 apt update -y
 apt upgrade -y
 
-apt install ssh python
+apt install ssh python3 -y
+
+echo "PubkeyAuthentication yes" >> /etc/ssh/sshd_config
+echo "AuthorizedKeysFile .ssh/authorized_keys"  >> /etc/ssh/sshd_config
+systemctl restart ssh
 
 useradd -G astra-admin -m -s /bin/bash deployer
 echo "deployer ALL=(ALL) NOPASSWD:ALL" | tee /etc/sudoers.d/deployer
-
-
 
 }

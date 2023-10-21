@@ -29,6 +29,10 @@ ASTRA_EXT="http://download.astralinux.ru/astra/frozen/1.7_x86-64/1.7.4/repositor
 
 #######################################################################################
 
+echo -n "Enter the role (Ansible_main | Ansible_host): "
+read ROLE
+
+
 function Install_for_red {
 
 case $ROLE in
@@ -53,18 +57,20 @@ case $ROLE in
     Ansible_main|ansible_main)
 
     apt install git ansible -y
-    sudo su - deployer
-    ssh-keygen -t rsa  -N "" 
+    ssh-keygen -t rsa -f /home/deployer/.ssh/id_rsa
+    chown -R deployer:deployer /home/deployer/.ssh/
     ;;
 
     Ansible_host|ansible_host)
+    mkdir /home/deployer/.ssh
+    chmod 700 /home/deployer/.ssh
     touch /home/deployer/.ssh/authorized_keys
     chmod 600 /home/deployer/.ssh/authorized_keys
-    cat <<EOL > /home/deployer/.ssh/authorized_keys
-    $PUBLIC_KEY_SSH
-    EOL
+
+    echo "$PUBLIC_KEY_SSH" > /home/deployer/.ssh/authorized_keys
     ;;
 esac
+
 }
 
 function Configure_OS_red {
@@ -81,9 +87,9 @@ search $SEARCH
 nameserver $NAMESERVERS
 EOL
 
-
-
 }
+
+
 
 function Configure_OS_astra {
 
@@ -135,7 +141,7 @@ echo "AuthorizedKeysFile .ssh/authorized_keys"  >> /etc/ssh/sshd_config
 systemctl restart ssh
 
 useradd -G astra-admin -m -s /bin/bash deployer
-echo "deployer ALL=(ALL) NOPASSWD:ALL" | tee /etc/sudoers.d/deployer
+echo "deployer ALL=(ALL) NOPASSWD: ALL" | tee /etc/sudoers.d/deployer
 
 }
 
@@ -148,17 +154,16 @@ echo "deployer ALL=(ALL) NOPASSWD:ALL" | tee /etc/sudoers.d/deployer
 
 
 
-echo -n "Enter the role (Ansible_main | Ansible_host): "
-read ROLE
+
 
 case $OS_RELEASE in
 
-    RED|red|Red OS)
+    RED|red|RedOS)
         Configure_OS_red
         Install_for_red
     ;;
 
-    Astra|astra|Astra Linux)
+    Astra|astra|AstraLinux)
         Configure_OS_astra
         Install_for_astra
     ;;

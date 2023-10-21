@@ -4,7 +4,7 @@
     name: memcached
     state: present
 
- - name: Generate template memcached
+- name: Generate template memcached
   ansible.builtin.template:
     src: memcached.conf.j2
     dest: /etc/memcached.conf

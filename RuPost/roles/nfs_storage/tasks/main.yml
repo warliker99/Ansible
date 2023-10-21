@@ -6,7 +6,7 @@
 
 - name: Mkdir root_nfs
   ansible.builtin.file:
-    path: {{ root_dir_nfs}}/nfs/{{ item }}
+    path: '{{ root_dir_nfs }}/nfs/{{ item }}'
     state: directory
     mode: '0755'
     owner: 420
@@ -18,13 +18,13 @@
     - MailRecord
     - IndexFiles
 
- - name: Generate template nfs-kernel-server
+- name: Generate template nfs-kernel-server
   ansible.builtin.template:
     src: nfs-kernel-server.j2
     dest: /etc/default/nfs-kernel-server
 
 
- - name: Generate template nfs-kernel-server_exports
+- name: Generate template nfs-kernel-server_exports
   ansible.builtin.template:
     src: exports.j2
     dest: /etc/exports

@@ -4,13 +4,22 @@
     name: postgresql-11
     state: present
 
+- name: Install postgres + ansible
+  ansible.builtin.apt:
+    name: {{ item }}
+    state: present
+  loop:
+    - python-psycopg2
+    - python3-psycopg2
+
+
 - name: Create user
   become: yes
   become_user: postgres
   community.postgresql.postgresql_user:
     db: postgres
     name: rupost
-    password: {{ db_password }}
+    password: "{{ db_password }}"
     state: present
     expires: infinity
     priv: ALL
@@ -18,8 +27,7 @@
 - name: Create database rupost
   become: yes
   become_user: postgres
-  community.postgresql.postgresql_user:
-    community.postgresql.postgresql_db:
+  community.postgresql.postgresql_db:
     name: rupost
     owner: rupost
     encoding: UTF-8
@@ -27,8 +35,7 @@
 - name: Create database rupost_data
   become: yes
   become_user: postgres
-  community.postgresql.postgresql_user:
-    community.postgresql.postgresql_db:
+  community.postgresql.postgresql_db:
     name: rupost_data
     owner: rupost
     encoding: UTF-8
@@ -36,8 +43,7 @@
 - name: Create database rupost_logs
   become: yes
   become_user: postgres
-  community.postgresql.postgresql_user:
-    community.postgresql.postgresql_db:
+  community.postgresql.postgresql_db:
     name: rupost_logs
     owner: rupost
     encoding: UTF-8

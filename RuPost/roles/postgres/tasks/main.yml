@@ -6,7 +6,7 @@
 
 - name: Install postgres + ansible
   ansible.builtin.apt:
-    name: {{ item }}
+    name: "{{ item }}"
     state: present
   loop:
     - python-psycopg2

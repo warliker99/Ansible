@@ -1,2 +1,6 @@
 ---
-# handlers file for nfs_storage
+- name: restart nfs-kernel-server
+  ansible.builtin.systemd:
+    name: nfs-kernel-server
+    enabled: yes
+    state: restarted

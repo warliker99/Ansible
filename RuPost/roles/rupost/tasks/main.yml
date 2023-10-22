@@ -1,7 +1,7 @@
 ---
 
 - name: Install Rupost Node
-  ansible.builtin.shell: sh rupost*.sh --silent  --db-host {{ db_ip }} --db-port 5432 --db-user rupost --db-password {{ db_password }} --db-name rupost --data-db-name rupost_data --logs-db-name rupost_logs
+  ansible.builtin.shell: sh /opt/rupost.run --silent  --db-host {{ db_ip }} --db-port 5432 --db-user rupost --db-password {{ db_password }} --db-name rupost --data-db-name rupost_data --logs-db-name rupost_logs
 
 - name: Generate openssl dhparam
   ansible.builtin.shell: openssl dhparam -out /opt/rupost-builtin-dhparam.pem 4096

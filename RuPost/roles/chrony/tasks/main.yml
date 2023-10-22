@@ -9,7 +9,7 @@
 - name: Disable ntp
   ansible.builtin.service:
     name: ntp
-    enabled: notify
+    enabled: no
     state: stopped
 
 - name: Set chrony config

@@ -63,9 +63,10 @@ case $ROLE in
 
     Ansible_host|ansible_host)
     mkdir /home/deployer/.ssh
-    chmod 700 /home/deployer/.ssh
     touch /home/deployer/.ssh/authorized_keys
     chmod 600 /home/deployer/.ssh/authorized_keys
+    chmod 700 -R /home/deployer/.ssh
+    chown -R deployer: /home/deployer/.ssh
 
     echo "$PUBLIC_KEY_SSH" > /home/deployer/.ssh/authorized_keys
     ;;

@@ -6,9 +6,15 @@
     name: chrony
     state: latest
 
+- name: Disable ntp
+  ansible.builtin.service:
+    name: ntp
+    enabled: notify
+    state: stopped
+
 - name: Set chrony config
   ansible.builtin.template:
     src: chrony.conf.j2
-    dest: /etc/chrony.conf
+    dest: /etc/chrony/chrony.conf
   notify:
     - restart chrony

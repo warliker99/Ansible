@@ -141,7 +141,7 @@ echo "AuthorizedKeysFile .ssh/authorized_keys"  >> /etc/ssh/sshd_config
 systemctl restart ssh
 
 useradd -G astra-admin -m -s /bin/bash deployer
-echo "deployer ALL=(ALL) NOPASSWD: ALL" | tee /etc/sudoers.d/deployer
+echo "deployer ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
 }
 

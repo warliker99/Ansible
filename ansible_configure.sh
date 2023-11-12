@@ -15,7 +15,7 @@ IPV4="172.31.32.22"
 MASK="255.255.255.0"
 GATEWAY="172.31.32.1"
 #Domain name
-SEARCH="ald.int"
+SEARCH="aldpro.ru"
 #IP-адрес контроллера домена
 NAMESERVERS="172.31.32.6"
 
